@@ -22,30 +22,24 @@ function BST() {
 //insert：向树中添加新节点
 function insert(data) {
     var n = new Node(data, null, null)
-    console.log("data = ",data);
     if (this.root === null) {
         this.root = n
     } else {
-        let curNode = this.root
+        var curNode = this.root
         while (true) {
             if (data < curNode.data) {
-                console.log("curNode.data= ",curNode,curNode.left);
-                curNode = curNode.left
-                if (curNode === null) {
-                    curNode = n
-                    console.log("curNode = ",curNode);
+                if (curNode.left === null) {
+                    curNode.left = n
                     break
                 }
+                curNode = curNode.left
             }
             else {
-                console.log(curNode.right);
-                curNode = curNode.right
-                
-                if (curNode === null) {
-                    curNode = n
-                    
+                if (curNode.right === null) {
+                    curNode.right = n
                     break
                 }
+                curNode = curNode.right
             }
         }
     }
@@ -69,5 +63,6 @@ nums.insert(16);
 nums.insert(37);
 nums.insert(3);
 nums.insert(99);
-nums.insert(22);
+nums.insert(22); 
+nums.insert(45)
 console.log(nums)
