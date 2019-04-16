@@ -12,8 +12,8 @@ function fn(n){
    
 
 /* 冒泡 */
-
-function bubbleSort(data){
+function bubbleSort(list){
+    var data = list.slice(0)
     var length = data.length
     for(let i = 0 ;i<length;i++){
         for(let j = 0 ; j<length-1-i;j++){
@@ -25,10 +25,12 @@ function bubbleSort(data){
             }
         }
     }
+    return data
 }
 
 /* selection */
-function selectionSort(data){
+function selectionSort(list){
+    var data = list.slice(0)
     var length = data.length
     for(let i=0 ;i<length ;i++){
         let min = i
@@ -43,31 +45,48 @@ function selectionSort(data){
     }
     return data
 }
-var arr = [-2,14,6,2,3,1,5,-1,2.5]
-console.log("原数组：",arr)
-console.log("选择排序   O(n²) ：",selectionSort(arr));
 
 /* 插入排序 */
-
-function fastSort(data){
+function insertSort(list){
+    var data = list.slice(0)
     var length = data.length
     for(let i = 0;i< length-1; i++){
         var current = data[i+1]
         let j =i
-        while(j<0){
+        while(j>0){
             if(data[j]>current){
                data[j+1]=data[j]
                j--
             }else{
-                data[j] = current
                 break;
             }
-        }
+        } 
+        data[j+1] = current
     }
     return data
 }
-console.log("插入排序",fastSort(arr));
 
 
 
 /* 快速排序 */
+function fastSort(list){
+    var data = list.slice(0)
+    if(data.length<=1)return data
+    var index = Math.floor(data.length/2)
+    var baseValue = data.splice(index,1)[0]
+    var left = []
+    var right = []
+    data.forEach(element => {
+        if(element<baseValue) left.push(element)
+        else right.push(element)
+    });
+    return fastSort(left).concat(baseValue,fastSort(right))
+}
+
+var arr = [-2,14,6,2,3,1,5,-1,2.5]
+console.log("原数组：",arr)
+console.log("冒泡排序   O(n²) ：",bubbleSort(arr));
+console.log("选择排序   O(n²) ：",selectionSort(arr));
+console.log("插入排序   O(n²) : ",insertSort(arr));
+console.log("快速排序  O(nlogn) ",fastSort(arr));
+console.log(arr);
