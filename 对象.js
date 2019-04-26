@@ -32,13 +32,6 @@ var per2 = new Object()
 per2.name = "haha"
 per2.age = '23'
 
-/* for(var i=0;i<6;i++){
-    setTimeout(function(){
-        console.log(i); //为什么输出的总是 6，而不是0,1,2,3,4,5
-    },i*1000);
-} */
-
-
 /* 闭包 */
 /*  */
 function funcBB1(n) {
