@@ -110,8 +110,6 @@ class animal {
         console.log("name = ",this.name)
     }
 }
-console.log('class继承');
-
 class Dog extends animal{
     constructor(name,age){
         super(name)
