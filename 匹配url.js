@@ -4,10 +4,10 @@ function getUrlParam(sUrl, sKey) {
     var resObj = {}
     var key = new RegExp('[?#&]', 'g')
     var bufArr = sUrl.split(key)
-    bufArr.shift()
+    bufArr.shift()  
     bufArr.forEach(function(element) {
         var apart = element.split('=')
-        if(apart[1]){
+        if(apart[1]){  //判断是否有value
             if(resObj[apart[0]]){ //之前就存在
                 if(typeof(resObj[apart[0]]) != "object"){ //之前不为数组
                     resObj[apart[0]] = new Array(resObj[apart[0]])
