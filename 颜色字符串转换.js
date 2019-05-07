@@ -5,9 +5,7 @@ function rgb2hex(sRGB) {
     var res = '#'
     for(var i = 1 ; i<4 ; i++){
         if( 0 <= colorArr[i] && colorArr[i] <= 255){
-            var bufStr = parseInt(colorArr[i]).toString(16)
-            
-            res = res.concat(bufStr<16?'0'+bufStr : bufStr);
+            res = res.concat(Number(colorArr[i]).toString(16).padStart(2,'0'));
         }
         else return sRGB
     }
