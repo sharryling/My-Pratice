@@ -3,7 +3,8 @@
  ##  没有模块化规范
 */
 
-(function(module2){
-    console.log('start', window)
-    module2()
-})(module2)
+// app.js
+(function(moduleA){
+    moduleA()
+})(moduleA)
+
