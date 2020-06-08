@@ -32,10 +32,41 @@ function NumberOf2(n)
     while(n != 0){
         count++;
         n = n & (n - 1);
+        console.log('ddd', n);
+        
      }
     return count;
 }
 
-console.log(NumberOf1(53),NumberOf1(-53));
 console.log("res=",NumberOf2(53),NumberOf2(-53));
 
+
+
+// 2020——5——13
+function NumberOf1_3(n)
+{
+    if(n ===0) {
+        return 0
+    } else if(n>0) {
+        let count1 = 0
+        while(n!==0) {
+            if(n%2 ===1) {
+                count1++
+            }
+            n = Math.floor(n/2)
+        }
+        return count1
+    } else if(n<0) {
+        let nStr = (Array(32).join("0")+(-n - 1).toString(2)).slice(-32)
+        let count0 = 0
+        for(let i=0;i<nStr.length;i++) {
+            if(nStr[i] === '0') {
+            count0 ++
+            }
+        }
+        return count0
+    }
+
+}
+
+console.log(NumberOf1_3(53),NumberOf1_3(-53));

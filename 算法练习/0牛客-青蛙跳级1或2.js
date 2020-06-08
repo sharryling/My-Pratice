@@ -42,3 +42,50 @@ function jumpFloorII(number)
 }
 
 console.log(jumpFloorII(3));
+
+
+
+
+
+
+// 2020/5/11
+console.log('_______________________');
+
+
+function jumpFloorIII(number)
+{
+    if(number<=2) {
+        return number
+    }
+    return jumpFloorIII(number - 1) + jumpFloorIII(number - 2)
+}
+console.log(jumpFloor(6));
+console.log('sss:', jumpFloorIII(6));
+
+
+
+function jumpFloorIV(n) {
+    if(n <=2) {
+        return n
+    } else {
+        let sumArr = [1, 2]
+        for(let i = 0; i< n-2; i++) {
+            let buf = sumArr[1]
+            sumArr[1] = sumArr[0] + sumArr[1]
+            sumArr[0] = buf
+        }
+        return sumArr[1]
+    }
+}
+
+console.log('________青蛙变态跳__________');
+function jumpFloorIV(number)
+{
+    if(number <=3) {
+        return number
+    } else {
+
+    }
+}
+
+console.log(jumpFloorIV(4));

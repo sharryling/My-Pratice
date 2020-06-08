@@ -22,3 +22,34 @@ function printListFromTailToHead(head)
 }
 
 console.log("aa = ",printListFromTailToHead(head));
+
+
+
+console.log('_________________________');
+
+// 2020/5/9
+function nodeList(Val) {
+    this.val = Val
+    this.next = null
+}
+const testNode = new nodeList('123')
+testNode.next = new nodeList('345')
+testNode.next.next = new nodeList('567')
+console.log(testNode);
+
+
+
+function printListFromTailToHead(head)
+{
+    const reverseNode = []
+    let currNode = head
+    while(currNode) {
+        reverseNode.push(currNode.val)
+        currNode = currNode.next
+    }
+    //console.log(reverseNode);
+    
+    return reverseNode.reverse()
+}
+
+console.log(printListFromTailToHead(head));

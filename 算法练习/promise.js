@@ -41,4 +41,6 @@ const p1 = new Promise(function (resolve, reject) {
   
   p2
     .then(result => console.log(result))
-    .catch(error => console.log("error"))
+    .catch(error => console.log("error2"))
+
+// test 2 2019.8.18

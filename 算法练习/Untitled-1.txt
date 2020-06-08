@@ -1,0 +1,26 @@
+var  T = parseInt(readline());
+while(T>0){
+    var n = parseInt(readline())
+    let list = []
+    for(let i= 0;i<n;i++){
+        input = readline().split(" ")
+        j = 0
+        while(list[j][1] < input[1]) {
+            j++
+        }
+        list.splice(j--,0,input)
+    }
+    
+    let time = 0
+    print(list)
+    const flag = list.some(item, function(){
+        time = + item[0] + time
+        if(time > parseInt(item[1])){
+            noStatus = true
+            return true
+        } 
+    })
+
+    print(noStatus ? 'No' : 'Yes')
+    T--
+}
