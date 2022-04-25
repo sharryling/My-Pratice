@@ -29,39 +29,44 @@ console.log('=================================')
  * 来源：力扣（LeetCode）
  * 链接：https://leetcode-cn.com/problems/reverse-linked-list-ii
  */
-
-var reverseBetween = function (head, left, right) {
-    if (!head || !head.next) {
-        return head
-    }
-    let cur = head;
-    let next = null, last = null;
-    let index = 1;
-    let leftOne = null;
-
-    while (index <= right) {
-        if (index < left) {
-            if (index === left - 1) {
-                leftOne = cur;
-            }
-            cur = cur.next
-            index++
-            continue;
-        }
-        // if(index === right) {
-        //     index++
-        //     continue;
-        // }
-        next = cur.next
+ function reverseListNode(head) {
+    let cur = head
+    let last = null
+    while(cur) {
+        const next = cur.next
         cur.next = last
         last = cur
         cur = next
-        index++
-        console.log('leftOne2', leftOne.printf(), cur && cur.printf())
     }
-    leftOne.next = last
-    console.log('==>', leftOne.printf(), last.printf(), next && next.printf())
-    // last.next = next
-    return head
+    return last
 }
+/**
+ * @param {ListNode} head
+ * @param {number} left
+ * @param {number} right
+ * @return {ListNode}
+ */
+var reverseBetween = function(head, left, right) {
+    let newHead = new ListNode(-1)
+    newHead.next = head
+    let pre = newHead
+    // pre指向leftNode前一个
+    for(let i = 1; i< left; i++) {
+        pre = pre.next
+    }
+    let leftNode = pre.next
+    let rightNode = leftNode
+    pre.next = null
+    // pre指向leftNode前一个
+    for(let i = 0; i< right - left; i++) {
+        rightNode = rightNode.next
+    }
+    // rightNode为最后leftNode最后一个, nextNode为下一个
+    let nextNode = rightNode ? rightNode.next : null
+    rightNode.next = null
+
+    pre.next = reverseListNode(leftNode)
+    leftNode.next = nextNode
+    return newHead.next
+};
 console.log(list2.printf(), reverseBetween(list2, 2, 4).printf())
