@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Hello world!</title>
+    <style type="text/css">
+      #container {
+        /*地图(容器)显示大小*/
+        width: 1200px;
+        height: 400px;
+      }
+    </style>
+    <!--引入Javascript API GL，参数说明参见下文-->
+    <script src="https://map.qq.com/api/gljs?v=1.exp&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77"></script>
+    <script>
+      class TGis {
+        constructor() {
+          this.map = null;
+        }
+      }
+      TGis.prototype.initMap = function (id, lat, lng, options) {
+        const center = new TMap.LatLng(lat, lng);
+        this.map = new TMap.Map(id, { center, ...options });
+        const map = this.map;
+        var clickHandler = function (evt) {
+          var lat = evt.latLng.getLat().toFixed(6);
+          var lng = evt.latLng.getLng().toFixed(6);
+          console.log("您点击的的坐标是：" + lat + "," + lng);
+        };
+        //Map实例创建后，通过on方法绑定点击事件
+        this.map.on("click", clickHandler);
+
+        this.map.on("bounds_changed", function () {
+          var mapCenter = map.getCenter(); //获取地图中心点坐标
+          position.innerHTML =
+            mapCenter.getLat().toFixed(6) + "," + mapCenter.getLng().toFixed(6);
+          var mapBounds = map.getBounds(); //获取当前地图的视野范围
+          if (mapBounds) {
+            var nothEast =
+              "当前可视区域范围：东北/左上:[" +
+              mapBounds.getNorthEast().getLat().toFixed(6) +
+              "," +
+              mapBounds.getNorthEast().getLng().toFixed(6) +
+              "] ；";
+            var southWest =
+              "西南/右下:[" +
+              mapBounds.getSouthWest().getLat().toFixed(6) +
+              "," +
+              mapBounds.getSouthWest().getLng().toFixed(6) +
+              "]";
+            bounds.innerHTML = nothEast + southWest;
+          }
+        });
+      };
+
+      TGis.prototype.setCenter = function (lat, lng) {
+        this.map.setCenter(new TMap.LatLng(lat, lng));
+      };
+      TGis.prototype.getZoom = function () {
+        this.map.getZoom();
+      };
+
+      TGis.prototype.fitBounds = function (neLatLngList, swLatLngList) {
+        var ne = new TMap.LatLng(...neLatLngList); //东北角坐标
+        var sw = new TMap.LatLng(...swLatLngList); //西南角坐标
+        this.map.fitBounds(new TMap.LatLngBounds(sw, ne));
+      };
+
+      TGis.prototype.MultiMarker = function (neLatLngList, swLatLngList) {
+        return new TMap.MultiMarker({
+          map: this.map, //指定地图容器
+          //样式定义
+          styles: {
+            //创建一个styleId为"myStyle"的样式（styles的子属性名即为styleId）
+            myStyle: new TMap.MarkerStyle({
+              width: 25, // 点标记样式宽度（像素）
+              height: 35, // 点标记样式高度（像素）
+              //   src: "./icon_10.png", //图片路径
+              //焦点在图片中的像素位置，一般大头针类似形式的图片以针尖位置做为焦点，圆形点以圆心位置为焦点
+              anchor: { x: 16, y: 32 },
+            }),
+          },
+          marker: {
+            //创建一个styleId为"myStyle"的样式（styles的子属性名即为styleId）
+            myStyle: new TMap.MarkerStyle({
+              width: 80, // 点标记样式宽度（像素）
+              height: 80, // 点标记样式高度（像素）
+                src: "https://mapapi.qq.com/web/lbs/javascriptGL/demo/img/car.png", //图片路径
+              //焦点在图片中的像素位置，一般大头针类似形式的图片以针尖位置做为焦点，圆形点以圆心位置为焦点
+              anchor: { x: 16, y: 32 },
+            }),
+            'car-down': new TMap.MarkerStyle({
+          'width': 40,
+          'height': 40,
+          'anchor': {
+            x: 20,
+            y: 20,
+          },
+          'faceTo': 'map',
+          'rotate': 180,
+          'src': 'https://mapapi.qq.com/web/lbs/javascriptGL/demo/img/car.png',
+        }),
+          },
+          //点标记数据数组
+          geometries: [
+            {
+              id: "1", //点标记唯一标识，后续如果有删除、修改位置等操作，都需要此id
+              styleId: "car-down", //指定样式id
+              position: new TMap.LatLng(39.954104, 116.357503), //点标记坐标位置
+              properties: {
+                //自定义属性
+                title: "marker1",
+              },
+            },
+            {
+              //第二个点标记
+              id: "2",
+              styleId: "car-down",
+              position: new TMap.LatLng(39.994104, 116.287503),
+              properties: {
+                title: "marker2",
+              },
+            },
+          ],
+        });
+      };
+
+      TGis.prototype.MultiLabel = function (neLatLngList, swLatLngList) {
+        return new TMap.MultiLabel({
+          id: "label-layer",
+          map: this.map, //设置折线图层显示到哪个地图实例中
+          //文字标记样式
+          styles: {
+            label: new TMap.LabelStyle({
+              color: "#3777FF", //颜色属性
+              size: 20, //文字大小属性
+              offset: { x: 0, y: 0 }, //文字偏移属性单位为像素
+              angle: 0, //文字旋转属性
+              alignment: "center", //文字水平对齐属性
+              verticalAlignment: "middle", //文字垂直对齐属性
+            }),
+          },
+          //文字标记数据
+          geometries: [
+            {
+              id: "label_1", //点图形数据的标志信息
+              styleId: "label", //样式id
+              position: new TMap.LatLng(39.994104, 116.287503), //标注点位置
+              content: "腾讯北京总部", //标注文本
+            },
+          ],
+        });
+      };
+
+      TGis.prototype.MarkerCluster = function () {
+        return new TMap.MarkerCluster({
+          id: "cluster", //图层id
+          map: this.map, //设置点聚合显示在哪个map对象中（创建map的段落省略）
+          enableDefaultStyle: true, //使用默认样式
+          minimumClusterSize: 2, //最小聚合点数：2个
+          styles: {
+            label: new TMap.LabelStyle({
+              color: "#3777FF", //颜色属性
+              size: 20, //文字大小属性
+              offset: { x: 0, y: 0 }, //文字偏移属性单位为像素
+              angle: 0, //文字旋转属性
+              alignment: "center", //文字水平对齐属性
+              verticalAlignment: "middle", //文字垂直对齐属性
+            }),
+          },
+          geometries: [
+            { position: new TMap.LatLng(39.982829, 116.306934) },
+            { position: new TMap.LatLng(39.989011, 116.323586) },
+            { position: new TMap.LatLng(39.978751, 116.313286) },
+            { styleId: "label", position: new TMap.LatLng(39.980593, 116.304359), content: "腾讯北京总部", },
+            //....将您所有要打到图中的坐标点传入进来
+          ],
+          zoomOnClick: true, //点击聚合数字放大展开
+          gridSize: 60, //聚合算法的可聚合距离，即距离小于该值的点会聚合至一起，默认为60，以像素为单位
+          averageCenter: false, //每个聚和簇的中心是否应该是聚类中所有标记的平均值
+          maxZoom: 16, //采用聚合策略的最大缩放级别，若地图缩放级别大于该值，则不进行聚合，标点将全部被展开
+        });
+      };
+      function fitBounds() {
+        mapT.fitBounds([39.96693, 116.49369], [39.86, 116.28666]); //根据指定的范围调整地图视野
+        markerLayer = mapT.MultiMarker();
+        MultiLabel = mapT.MultiLabel();
+        MarkerCluster = mapT.MarkerCluster();
+        
+        var clickHandler = function (evt) {
+          alert(evt.geometry.properties);
+          eventOff();
+        };
+        //监听marker点击事件
+        // MarkerCluster.on("click", clickHandler)
+        markerLayer.on("click", clickHandler);
+
+        //解绑点击事件，要求事件处理方法不能是匿名方法
+        function eventOff() {
+          markerLayer.off("click", clickHandler);
+        }
+      }
+
+      function onload() {
+        window.mapT = new TGis();
+        console.log("TMap", TMap);
+        mapT.initMap("container", "39.984120", "116.307484", {
+          zoom: 17.2, //设置地图缩放级别
+          pitch: 43.5, //设置俯仰角
+          rotation: 45, //设置地图旋转角度,
+          viewMode: "3D",
+        });
+      }
+
+      function setCenter() {
+        mapT.setCenter("39.984120", "118.307484");
+      }
+
+      function addPoint() {
+        markerLayer.add([
+          {
+            id: "3", //点标记唯一标识，后续如果有删除、修改位置等操作，都需要此id
+            styleId: "car-down", //指定样式id
+            position: new TMap.LatLng(39.954104, 116.357503), //点标记坐标位置
+            properties: {
+              //自定义属性
+              title: "marker3",
+            },
+          },
+          {
+            //第4个点标记
+            id: "4",
+            styleId: "marker",
+            position: new TMap.LatLng(39.994104, 116.287503),
+            properties: {
+              title: "marker4",
+            },
+          },
+        ]);
+        markerLayer.remove(["3"]);
+
+        setTimeout(() => {
+          markerLayer.updateGeometries([
+            {
+              styleId: "marker",
+              id: "3",
+              position: new TMap.LatLng(39.994104, 116),
+            },
+          ]);
+        }, 2000);
+      }
+    </script>
+  </head>
+  <!-- 页面载入后，调用init函数 -->
+  <body onload="onload()">
+    <!-- 定义地图显示容器 -->
+    <button onclick="setCenter()">setCenter</button>
+    <button onclick="addPoint()">addPoint</button>
+
+    <div id="container"></div>
+    <div id="info">
+      <p>当前地图中心点：<span id="position">39.984104, 116.307503</span></p>
+      <p><span id="bounds"></span></p>
+      <!-- 地图图层上的button需要设置z-index>1000 -->
+      <input
+        type="button"
+        id="fit-bounds"
+        onclick="fitBounds()"
+        value="fitBounds"
+      />
+    </div>
+  </body>
+</html>
