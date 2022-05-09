@@ -1,0 +1,114 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      ul,
+      li {
+        list-style: none;
+        /* display: block; */
+      }
+
+      .box {
+        width: 1050px;
+        /* height: 300px; */
+        margin: 100px auto;
+        /* overflow: hidden; */
+      }
+
+      #accordion li {
+        /* float: left; */
+        width: 600px;
+        height: 80px;
+        color: #000;
+        font-size: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="box">
+      <ul id="accordion">
+        <li id='li-1' style="background: #f99">1</li>
+        <li style="background: #9ff">2</li>
+        <li style="background: #f9f">3</li>
+        <li style="background: #9f9">4</li>
+        <li style="background: blue">5</li>
+        <li style="width: 450px; background: yellow">6</li>
+      </ul>
+    </div>
+    <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <script type="text/javascript">
+    //  手风琴生成
+      const accordionDOM = document.getElementById("accordion")
+      function createInnerHtml() {
+        const colorMap = ["#f99", "#9ff", "#f9f"];
+        var mainArr = [];
+        let mainStr = "";
+        for (let i = 0; i < 10; i++) {
+          mainArr.push({
+            name: i,
+            color: colorMap[i % 3],
+          });
+        }
+        mainArr.forEach((e) => {
+          mainStr += `<li style="background: ${e.color};">${e.name}</li>`;
+        });
+        return mainStr
+      }
+      accordionDOM.innerHTML = createInnerHtml();
+      function accordion() {
+        var oBox = document.querySelector(".box");
+        var accordion = oBox.querySelector("#accordion");
+        var oList = accordion.getElementsByTagName("li");
+        var i = 0;
+        var timer = null;
+        for (var i = 0; i < oList.length; i++) {
+          oList[i].index = i;
+          oList[i].onmouseover = function () {
+            var index = this.index;
+            if (timer) {
+              clearInterval(timer);
+            }
+            timer = setInterval(function () {
+              var iWidth = oBox.offsetWidth; //盒子的总宽度
+            //   console.log(iWidth);
+              1050;
+              for (var i = 0; i < oList.length; i++) {
+                if (index != oList[i].index) {
+                  //设定速度
+                  var speed = (100 - oList[i].offsetWidth) / 5;
+                  speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+                  oList[i].style.width = oList[i].offsetWidth + speed + "px";
+                  iWidth -= oList[i].offsetWidth;
+                }
+                oList[index].style.width = iWidth + "px";
+              }
+            }, 30);
+
+            // requestAnimationFrame
+          };
+        }
+      }
+      accordion();
+
+
+      const box = document.getElementById('li-1')
+      requestAnimationFrame(logBoxHeight);
+      function logBoxHeight() {
+            // box.classList.add('super-big');
+            console.log('->>>', box);
+      }
+
+      
+    </script>
+  </body>
+</html>

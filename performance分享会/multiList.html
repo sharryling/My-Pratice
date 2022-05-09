@@ -1,0 +1,278 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+        /*
+手风琴效果
+*/
+        .listboder {
+            border: 1px solid #d0d0d0;
+            border-top: none;
+        }
+
+        .list {
+            display: none;
+            list-style: none;
+            background-color: #ffffff;
+            padding: 0px;
+        }
+
+        .list .item {
+            background: #F0F0F0;
+            font-size: 14px;
+            border-top: 1px solid #d0d0d0;
+        }
+
+        .list .active {
+            background: #d0d0d0;
+        }
+
+        .list .item .title {
+            width: 100%;
+        }
+
+        .list .item .title:hover {
+            background-color: #BEBEBE;
+        }
+
+        .list .item span {
+            display: inline-block;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .list .item i {
+            float: right;
+            margin-top: 10px;
+            margin-right: 20px;
+        }
+
+        .lp15 {
+            padding-left: 15px;
+        }
+
+        .lp30 {
+            padding-left: 30px;
+        }
+
+        .lp45 {
+            padding-left: 45px;
+        }
+
+        .lp60 {
+            padding-left: 60px;
+        }
+
+        .icon-chevron-down {
+            transform: rotate(90deg);
+            -ms-transform: rotate(90deg);
+            /* IE 9 */
+            -moz-transform: rotate(90deg);
+            /* Firefox */
+            -webkit-transform: rotate(90deg);
+            /* Safari 和 Chrome */
+            -o-transform: rotate(90deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <div style="width:320px; margin-left: 10px;">
+        <ul class="list listboder" style="display: block;">
+            <li class="item">
+                <div class="title">
+                    <span class="lp15">数据库</span>
+                    <i class="iconfont">&raquo;</i>
+                </div>
+                <ul class="list">
+                    <li class="item">
+                        <div class="title">
+                            <span class="lp30">mysql</span>
+                            <i class="iconfont">&raquo;</i>
+                        </div>
+                        <ul class="list">
+                            <li class="item">
+                                <div class="title">
+                                    <span class="lp45">schema</span>
+                                </div>
+                            </li>
+                            <li class="item">
+                                <div class="title">
+                                    <span class="lp45">table</span>
+                                </div>
+                            </li>
+                            <li class="item">
+                                <div class="title">
+                                    <span class="lp45">column</span>
+                                    <div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="item">
+                        <div class="title">
+                            <span class="lp30">oracle</span>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="title">
+                            <span class="lp30">redis</span>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li class="item">
+                <div class="title">
+                    <span class="lp15">java</span>
+                    <i class="iconfont">&raquo;</i>
+                </div>
+                <ul class="list">
+                    <li class="item">
+                        <div class="title">
+                            <span class="lp45">泛型</span>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="title">
+                            <span class="lp45">多线程</span>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="title">
+                            <span class="lp45">JVM</span>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li class="item">
+                <div class="title">
+                    <span class="lp15">前端</span>
+                    <i class="iconfont">&raquo;</i>
+                </div>
+                <ul class="list">
+                    <li class="item">
+                        <div class="title">
+                            <span class="lp45">html</span>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="title">
+                            <span class="lp45">css</span>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="title">
+                            <span class="lp45">js</span>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+		// $(function(){
+        //     ReactDOM.render(
+        //     <h1>Hello, world!</h1>,
+        //     document.getElementById('root')
+        // );
+        var mainStr = ""
+    //自定义数组
+    var mainArr = [
+    {
+        title: '这是第一级',
+        children:
+        [
+        {
+            question: '这是第一级1-1',
+            answer: '这是第一级1-1描述'
+        },
+        {
+            question: '这是第一级1-2',
+            answer: '这是第一级1-2描述',
+        }
+        ]
+    },
+    {
+        title: '这是第二级',
+        children: [
+        {
+            question: '这是第二级2-1',
+            answer: '这是第二级2-1描述'
+        },
+        {
+            question: '这是第二级2-2',
+            children: [
+            '这是第二级2-2-1',
+            '（这是第二级2-2-2']
+        }]
+    },
+    {
+        title: '这是第三级',
+        children:
+        [
+        {
+            question: '这是第三级3-1',
+            answer: '这是第三级3-1描述'
+        },
+        ]
+    }
+    ];
+    mainArr.forEach(e => {
+        mainStr += `<div class="item-wrap">
+        <div class="item-title">${e.title}</div>
+        <div class="text">
+        ${e.children.map((element, index) => {
+            let ele = `<p class="item-question">${index + 1}.${element.question}</p>`
+            if(element.children!=undefined){
+                element.children.forEach(item=>{
+                    ele += `<p class="item-answer">${item}</p>`  
+                })
+            }else{             
+                ele += `<p class="item-answer">${element.answer}</p>`  
+                console.log(element.children)
+            }          
+            return ele
+        }).join('')}
+        </div>
+        </div>`
+    })
+    document.getElementById("root").innerHTML = mainStr
+
+		// $('.item').click(function(event){
+		// 	_$this = $(this);
+
+		// 	//如果没有下级元素那么就执行别的方法
+		// 	if(_$this.children('.list').length==0) {
+		// 		return false;
+		// 	}
+		// 	//如果当前元素处于展开的状态，那么仅仅关闭当前层
+		// 	if(!(_$this.children('.list').is(':hidden'))){
+		// 		_$this.children('.list').hide();
+		// 		_$this.find('i').first().removeClass('icon-chevron-down');
+		// 		_$this.removeClass('active');
+		// 		return false;
+		// 	}
+		// 	//先关闭同级的展开的菜单
+		// 	var _$childen = _$this.parent().children('.item');
+		// 	_$childen.children('.list').hide();
+		// 	_$childen.children('.title').children('i').removeClass('icon-chevron-down');
+		// 	_$childen.removeClass('active');
+		// 	_$this.children('.list').show();
+		// 	_$this.find('i').first().addClass('icon-chevron-down');
+		// 	_$this.addClass('active');
+		// 	//阻止事件向上冒泡
+		// 	 event.stopPropagation();
+		// });
+	// })
+    </script>
+</body>
+
+</html>

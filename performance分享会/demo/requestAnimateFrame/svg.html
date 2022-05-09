@@ -1,0 +1,29 @@
+<html>
+<head>
+  <script type="application/javascript">
+ function dgebi(id) {
+    return document.getElementById(id);
+}
+// short svg file as string
+var svgtext = '<?xml version="1.0" encoding="UTF-8"?><svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title>icon/complaints</title><g id="icon/complaints" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><path d="M18.3,3 C19.785,3 21,4.215 21,5.7 L21,5.7 L21,14.7 C21,16.185 19.785,17.4 18.3,17.4 L18.3,17.4 L8.1075,17.4 L3.7425,20.91 C3.6525,20.9775 3.54,21 3.45,21 C3.3825,21 3.315,20.9775 3.2475,20.955 C3.09,20.8875 3,20.73 3,20.55 L3,20.55 L3,5.7 C3,4.215 4.215,3 5.7,3 L5.7,3 Z M12,10.145 C9.48,10.145 8.13,12.0125 8.085,12.08 C7.95,12.2825 7.995,12.575 8.1975,12.71 C8.4,12.845 8.6925,12.8 8.8275,12.5975 C8.8275,12.575 9.9525,11.0225 12.0225,11.0225 C14.07,11.0225 15.1725,12.53 15.2175,12.5975 C15.3075,12.7325 15.4425,12.7775 15.5775,12.7775 C15.6675,12.7775 15.7575,12.755 15.8475,12.6875 C16.05,12.5525 16.095,12.26 15.96,12.0575 C15.87,12.0125 14.52,10.145 12,10.145 Z" id="形状结合" fill="#F7A853" fill-rule="nonzero"></path></g></svg>' //... here I added the string from https://upload.wikimedia.org/wikipedia/commons/c/c6/%2212_World_fly.svg
+var imgtext = '<img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjRweCIgaGVpZ2h0PSIyNHB4IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8dGl0bGU+aWNvbi9jb21wbGFpbnRzPC90aXRsZT4KICAgIDxnIGlkPSJpY29uL2NvbXBsYWludHMiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxwYXRoIGQ9Ik0xOC4zLDMgQzE5Ljc4NSwzIDIxLDQuMjE1IDIxLDUuNyBMMjEsNS43IEwyMSwxNC43IEMyMSwxNi4xODUgMTkuNzg1LDE3LjQgMTguMywxNy40IEwxOC4zLDE3LjQgTDguMTA3NSwxNy40IEwzLjc0MjUsMjAuOTEgQzMuNjUyNSwyMC45Nzc1IDMuNTQsMjEgMy40NSwyMSBDMy4zODI1LDIxIDMuMzE1LDIwLjk3NzUgMy4yNDc1LDIwLjk1NSBDMy4wOSwyMC44ODc1IDMsMjAuNzMgMywyMC41NSBMMywyMC41NSBMMyw1LjcgQzMsNC4yMTUgNC4yMTUsMyA1LjcsMyBMNS43LDMgWiBNMTIsMTAuMTQ1IEM5LjQ4LDEwLjE0NSA4LjEzLDEyLjAxMjUgOC4wODUsMTIuMDggQzcuOTUsMTIuMjgyNSA3Ljk5NSwxMi41NzUgOC4xOTc1LDEyLjcxIEM4LjQsMTIuODQ1IDguNjkyNSwxMi44IDguODI3NSwxMi41OTc1IEM4LjgyNzUsMTIuNTc1IDkuOTUyNSwxMS4wMjI1IDEyLjAyMjUsMTEuMDIyNSBDMTQuMDcsMTEuMDIyNSAxNS4xNzI1LDEyLjUzIDE1LjIxNzUsMTIuNTk3NSBDMTUuMzA3NSwxMi43MzI1IDE1LjQ0MjUsMTIuNzc3NSAxNS41Nzc1LDEyLjc3NzUgQzE1LjY2NzUsMTIuNzc3NSAxNS43NTc1LDEyLjc1NSAxNS44NDc1LDEyLjY4NzUgQzE2LjA1LDEyLjU1MjUgMTYuMDk1LDEyLjI2IDE1Ljk2LDEyLjA1NzUgQzE1Ljg3LDEyLjAxMjUgMTQuNTIsMTAuMTQ1IDEyLDEwLjE0NSBaIiBpZD0i5b2i54q257uT5ZCIIiBmaWxsPSIjRjdBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iPjwvcGF0aD4KICAgIDwvZz4KPC9zdmc+"></img>'
+var d;
+function init() {
+    d = dgebi('id:testdiv');
+    //useInnerHTMLToCreateSVG();
+    useDOMParser();
+}
+function useInnerHTMLToCreateSVG() {
+    d.innerHTML = svgtext;
+}
+function useDOMParser() {
+    var parser = new DOMParser();
+    var doc = parser.parseFromString(svgtext, "image/svg+xml");
+    console.log('doc,', doc);
+}
+</script>
+</head>
+<body onload="init();">
+<div style="width:400px;height:400px;border: 1px #ff0000 solid;" id="id:testdiv"></div>
+</body>
+</html>

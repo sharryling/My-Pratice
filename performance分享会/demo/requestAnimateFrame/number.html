@@ -1,0 +1,52 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>origin</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      ul,
+      li {
+        list-style: none;
+      }
+
+      .box {
+        width: 1050px;
+        margin: 100px auto;
+      }
+
+      #accordion li {
+        width: 600px;
+        height: 80px;
+        color: #000;
+        font-size: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="box">
+      <button id="button">开启</button>
+      <ul id="accordion"></ul>
+    </div>
+    <script type="text/javascript">
+      document.querySelector("#button").addEventListener("click", () => {
+        const accordionDOM = document.getElementById("accordion");
+        accordionDOM.innerHTML = createInnerHtml();
+      });
+      function createInnerHtml() {
+        const colorMap = ["#f99", "#9ff", "#f9f"];
+        let mainStr = "";
+        for (let i = 0; i < 100000; i++) {
+          const name = i;
+          const color = colorMap[i % 3];
+          mainStr += `<li style="background: ${color};">${name}</li>`;
+        }
+        return mainStr;
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,73 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>improved</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      ul,
+      li {
+        list-style: none;
+      }
+
+      .box {
+        width: 1050px;
+        margin: 100px auto;
+      }
+
+      ul li {
+        width: 600px;
+        height: 80px;
+        color: #000;
+        font-size: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="box">
+      <button id="button">开启</button>
+      <ul id="ul"></ul>
+    </div>
+    <script type="text/javascript">
+      /*
+       * createDocumentFragmen & requestAnimationFrame
+       */
+
+      const total = 100000;
+      const once = 30;
+      const loopTimes = Math.ceil(total / once);
+      const ul = document.getElementById("ul");
+      let curTime = 0;
+      ul.innerHTML = createList();
+
+      // document.querySelector("#button").addEventListener("click", () => {
+      // });
+      function createList() {
+        const colorMap = ["#f99", "#9ff", "#f9f"];
+        let mainStr = "";
+        const fragment = document.createDocumentFragment();
+
+        for (let i = 0; i < once; i++) {
+          const color = colorMap[i % 3];
+          const li = document.createElement("li");
+          li.innerHTML = i;
+          li.style.background = color
+          fragment.appendChild(li);
+        }
+        ul.appendChild(fragment);
+        curTime++;
+        loop();
+        return mainStr;
+      }
+      function loop() {
+        if (curTime < loopTimes) {
+          requestAnimationFrame(createList);
+        }
+      }
+    </script>
+  </body>
+</html>

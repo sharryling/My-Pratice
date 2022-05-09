@@ -1,0 +1,54 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      ul,
+      li {
+        list-style: none;
+        /* display: block; */
+      }
+
+      #box {
+        width: 250px;
+        /* height: 300px; */
+        height: 30px;
+        background-color: #f99;
+        /* overflow: hidden; */
+      }
+      .super-big {
+        width: 450px !important;
+        height: 100px !important;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <div id="box">
+    </div>
+    <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <script type="text/javascript">
+    //  手风琴生成
+
+      const box = document.getElementById('box') 
+      requestAnimationFrame(logBoxHeight);
+      function logBoxHeight() {
+            box.offsetHeight = 130
+            console.log('-->', box.offsetHeight);
+            requestAnimationFrame(logBoxHeight)
+      }
+      
+
+      
+    </script>
+  </body>
+</html>
