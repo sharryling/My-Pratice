@@ -17,7 +17,6 @@ const handlePromise = (result, promise2, resolve, reject) => {
     if(typeof(result) === 'object' && result !== null || typeof(result) === 'function'  ) {
         if(typeof(result.then) === 'function') {
             result.then.call(result, r => handlePromise(r, promise2, resolve, reject), e => reject(e))
-            
         } else {
             resolve(result)
         }

@@ -12,7 +12,7 @@ function debounce(cb, wait, immediate) {
         // 多次触发会停止，直到“操作结束后”
         timer && clearTimeout(timer)
         if (immediate) {
-            var callNow = !timeout;
+            var callNow = !timer;
             // 这里顺序不能和if(callNow)换，如果换了，就得先执行完cb，再开始技术了
             timer = setTimeout(() => {
                 timer = null
@@ -63,6 +63,22 @@ const betterFn = debounce(() => console.log('fn 防抖执行了'), 1000, true)
 // 第一次触发 scroll 执行一次 fn，后续只有在停止滑动 1 秒后才执行函数 fn
 document.addEventListener('scroll', betterFn)
 
+
+const throttle = (fn, wait = 50) => {
+    // 上一次执行 fn 的时间
+    let previous = 0
+    // 将 throttle 处理结果当作函数返回
+    return function(...args) {
+      // 获取当前时间，转换成时间戳，单位毫秒
+      let now = +new Date()
+      // 将当前时间和上一次执行函数的时间进行对比
+      // 大于等待时间就把 previous 设置为当前时间并执行函数 fn
+      if (now - previous > wait) {
+        previous = now
+        fn.apply(this, args)
+      }
+    }
+  }
 
 
 /**
