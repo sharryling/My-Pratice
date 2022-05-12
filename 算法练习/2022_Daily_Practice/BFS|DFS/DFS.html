@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root">
+      <ul>
+        <li>
+          <a href="">
+            <img src="" alt="" />
+          </a>
+        </li>
+        <li>
+          <span></span>
+        </li>
+        <li></li>
+      </ul>
+      <p></p>
+      <button></button>
+    </div>
+    <script>
+      let deepFirstSearch = (node) => {
+        if (!node) {
+          return [];
+        }
+        let stack = [];
+        let nodes = [];
+        stack.push(node);
+        while (stack.length) {
+          //每次取最后一个
+          let item = stack.pop();
+          let children = item.children || [];
+          nodes.push(item);
+          //判断children的长度
+          for (let i = children.length - 1; i >= 0; i--) {
+            stack.push(children[i]);
+          }
+        }
+        return nodes;
+      };
+      let breadthFirstSearch = (node) => {
+        if (!node) {
+          return [];
+        }
+        let nodes = [];
+        let stack = [];
+        stack.push(node);
+        while (stack.length) {
+          //取第一个
+          let item = stack.shift();
+          let children = item.children || [];
+          nodes.push(item);
+          for (let i = 0; i < children.length; i++) {
+            stack.push(children[i]);
+          }
+        }
+        return nodes;
+      };
+      let obj = {
+        children: [
+          {
+            index: 0,
+            children: [
+              {
+                index: 1,
+                children: [
+                  {
+                    index: 3,
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            index: 4,
+          },
+          {
+            index: 5,
+            children: [
+              {
+                index: 7,
+                children: [
+                  {
+                    index: 8,
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            index: 6,
+          },
+        ],
+      };
+      // 链接：https://juejin.cn/post/6882627409393221646
+
+      //   function breadthFirstSearch(node) {
+      //     var nodes = [];
+      //     if (node) {
+      //       var queue = [];
+      //       queue.unshift(node);
+      //       while (queue.length != 0) {
+      //         var item = queue.shift();
+      //         nodes.push(item);
+      //         var children = item.children;
+      //         for (var i = 0; i < children.length; i++) queue.push(children[i]);
+      //       }
+      //     }
+      //     return nodes;
+      //   }
+
+      //   let root = document.getElementById("root");
+      console.log(
+        deepFirstSearch(obj, (nodeList = [])),
+        breadthFirstSearch(obj)
+      );
+    </script>
+  </body>
+</html>
