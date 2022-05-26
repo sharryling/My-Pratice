@@ -1,0 +1,24 @@
+<html>
+<script type="text/javascript" src="axios"></script>
+<body>
+<button class="btn">点我发送请求</button>
+<script>
+    document.querySelector('.btn').onclick = function() {
+        // 分别使用以下方法调用，查看myaxios的效果
+        axios.post('/postAxios', {
+          name: '小美post'
+        }).then(res => {
+          console.log('postAxios 成功响应', res);
+        })
+
+        axios({
+          method: 'post',
+          url: '/getAxios'
+        }).then(res => {
+          console.log('getAxios 成功响应', res);
+        })
+    }
+</script>
+</body>
+</html>
+</html>

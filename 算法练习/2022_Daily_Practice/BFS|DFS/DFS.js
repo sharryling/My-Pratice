@@ -78,4 +78,35 @@ function DFS(tree) {
     return res
 }
 
-console.log(BFS(obj), DFS(obj));
+
+
+function DFS2(tree) {
+    const stack = [], res =[]
+    stack.push(tree)
+    while(stack.length) {
+        const cur = stack.pop()
+        res.push(cur)
+        const children = cur.children || []
+        for(let i = children.length -1; i >= 0 ; i--) {
+            stack.push(children[i])
+        }
+    }
+    return res
+}
+
+function BFS2(tree) {
+    const stack = [], res =[]
+    stack.push(tree)
+    while(stack.length) {
+        const cur = stack.shift()
+        res.push(cur)
+        const children = cur.children || []
+        for(let i = 0 ; i < children.length ; i++) {
+            stack.push(children[i])
+        }
+    }
+    return res
+}
+
+
+console.log(BFS(obj), BFS2(obj), DFS(obj), DFS2(obj));

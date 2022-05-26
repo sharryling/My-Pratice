@@ -21,6 +21,11 @@ let Tree = function (val) {
 
 let list = []
 
+/**
+ *    0
+ *  1   2
+ * 3 4  5 6
+ */
 
 let tree = new Tree(0)
 tree.left = new Tree(1)
@@ -42,8 +47,8 @@ exports.tree = tree
  */
 var preorderTraversal = function(root) {
   if(root) {
-    list.push(root.val)
     preorderTraversal(root.left)
+    list.push(root.val)
     preorderTraversal(root.right)
   }
   return list

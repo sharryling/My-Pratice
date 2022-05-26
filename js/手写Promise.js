@@ -35,26 +35,36 @@ class Promise {
     cbREJECTEDLIST = []
     constructor(callback) {
         this.status = Promise.PEDDING
+        /**
+         * resolve不适合放在外面的方法，实例好像没有暴露这个方法
+         * Promise.resolve(42);
+            // 等同于
+            new Promise(function(resolve){
+                resolve(42);
+        });
+         */
+        function resolve(value) {
+            if (this.status === Promise.PEDDING) {
+                this.status = Promise.FULLFILED
+            }
+            this.value = value
+            this.cbFULLFILEDLIST.forEach(cb => cb())
+        }
+        function reject(reason) {
+            if (this.status === Promise.PEDDING) {
+                this.status = Promise.REJECTED
+            }
+            this.reason = reason
+            this.cbREJECTEDLIST.forEach(cb => cb())
+        }
+
         try {
-            callback(this.resolve.bind(this), this.reject.bind(this))
+            callback(resolve.bind(this), reject.bind(this))
         } catch (error) {
             this.reject.bind(this)(error)
         }
     }
-    resolve(value) {
-        if (this.status === Promise.PEDDING) {
-            this.status = Promise.FULLFILED
-        }
-        this.value = value
-        this.cbFULLFILEDLIST.forEach(cb => cb())
-    }
-    reject(reason) {
-        if (this.status === Promise.PEDDING) {
-            this.status = Promise.REJECTED
-        }
-        this.reason = reason
-        this.cbREJECTEDLIST.forEach(cb => cb())
-    }
+    
     then(onFULLFILTED, onREJECTED) {
         onFULLFILTED = typeof (onFULLFILTED) === 'function' ? onFULLFILTED : () => { }
         onREJECTED = typeof (onREJECTED) === 'function' ? onREJECTED : () => { }

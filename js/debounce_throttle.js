@@ -1,7 +1,7 @@
 /**
  * debounce
  * immediate=true时，我们立即执行 cb ，并在 wait 时间内锁住 cb 的执行，
- *  wait 时间之后再触发，才会重新执行 fn
+ *  wait 时间之后停止后，再触发，才会重新执行 fn
  */
 
 function debounce(cb, wait, immediate) {

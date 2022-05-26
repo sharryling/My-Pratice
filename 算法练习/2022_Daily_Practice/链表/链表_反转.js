@@ -70,3 +70,8 @@ var reverseBetween = function(head, left, right) {
     return newHead.next
 };
 console.log(list2.printf(), reverseBetween(list2, 2, 4).printf())
+
+
+
+
+
